@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
+    [SerializeField] private SliderRenderer _slider;
 
     private float _health = 100;
     private float _value = 10;
@@ -16,6 +17,7 @@ public class Health : MonoBehaviour
     public void ToDamage()
     {
         _health -= _value;
+        _slider.RenderSliderValue(_health);
     }
 
     public void ToCure()
@@ -25,11 +27,14 @@ public class Health : MonoBehaviour
 
     private IEnumerator ChangeValue(float value)
     {
+        var halfSecond = new WaitForSeconds(0.5f);
+
         for (int i = 0; i < _value; i++)
         {
             _health = Mathf.MoveTowards(_health, _health + _value, _incrementStep);
+            _slider.RenderSliderValue(_health);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return halfSecond;
         }
     }
 }
