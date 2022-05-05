@@ -8,6 +8,7 @@ public class HPBar : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private Health _health;
 
     private float _incrementStep = 1;
 
@@ -18,16 +19,17 @@ public class HPBar : MonoBehaviour
 
     private void OnEnable()
     {
-        Health.changeValue += RenderSliderValue;
+        _health.ChangedValue += RenderSliderValue;
     }
 
     private void OnDisable()
     {
-        Health.changeValue -= RenderSliderValue;
+        _health.ChangedValue -= RenderSliderValue;
     }
 
     private void RenderSliderValue(float value)
     {
+        StopAllCoroutines();
         StartCoroutine(ChangeValue(value));
     }
 

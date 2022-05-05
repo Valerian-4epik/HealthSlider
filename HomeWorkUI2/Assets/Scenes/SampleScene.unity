@@ -677,6 +677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 829887894}
   _text: {fileID: 1270051018}
+  _health: {fileID: 1705066140}
 --- !u!114 &829887894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,7 +1062,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.3
+  m_fontSize: 46.25
   m_fontSizeBase: 35.48
   m_fontWeight: 400
   m_enableAutoSizing: 1
