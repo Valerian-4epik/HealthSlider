@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,35 +6,44 @@ using TMPro;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private SliderRenderer _slider;
-
     private float _health = 100;
+    private float _maxHealth = 100;
+    private float _minHealth = 0;
     private float _value = 10;
-    private float _incrementStep = 1;
 
-    public float HealthValue => _health;
+    public static Action<float> changeValue;
 
     public void ToDamage()
     {
-        _health -= _value;
-        _slider.RenderSliderValue(_health);
+        if (_health > _minHealth)
+        {
+            if(_health < _value)
+            {
+                _health = _minHealth;
+            }
+            else
+            {
+               _health -= _value;
+            }
+            
+            changeValue?.Invoke(_health);
+        }        
     }
 
     public void ToCure()
     {
-        StartCoroutine(ChangeValue(_value));
-    }
-
-    private IEnumerator ChangeValue(float value)
-    {
-        var halfSecond = new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < _value; i++)
+        if (_health < _maxHealth)
         {
-            _health = Mathf.MoveTowards(_health, _health + _value, _incrementStep);
-            _slider.RenderSliderValue(_health);
-
-            yield return halfSecond;
-        }
+            if(_health+_value > _maxHealth)
+            {
+                _health = _maxHealth;
+            }
+            else
+            {
+                _health += _value;
+            }
+            
+            changeValue?.Invoke(_health);
+        }        
     }
 }
