@@ -15,13 +15,13 @@ public class Health : MonoBehaviour
 
     public void ToDamage()
     {
-        _health = Mathf.Clamp(_health-_value, _minHealth, _maxHealth);
+        _health = Mathf.Clamp(_health - _value, _minHealth, _maxHealth);
         ChangedValue?.Invoke(_health);
     }
 
     public void ToCure()
     {
-        _health = Mathf.Clamp(_health+_value, _minHealth, _maxHealth);
-        ChangedValue?.Invoke(_health);       
+        _health = Mathf.Clamp(_health + _value, _minHealth, _maxHealth);
+        ChangedValue?.Invoke(_health);
     }
 }
